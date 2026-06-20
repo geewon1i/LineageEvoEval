@@ -1,0 +1,7 @@
+pandas>=1.5
+
+[qlib]
+pyqlib==0.9.7
+
+[test]
+pytest<9,>=8

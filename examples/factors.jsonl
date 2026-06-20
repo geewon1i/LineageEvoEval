@@ -1,0 +1,3 @@
+{"factor_id": "example_001", "expression": "Rank($close)", "baseline": "example"}
+{"factor_id": "example_002", "expression": "TsMean($close, 5)", "baseline": "example"}
+{"factor_id": "example_003", "expression": "Div(Sub($open, $close), Add(Sub($high, $low), 0.001))", "baseline": "example"}

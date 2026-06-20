@@ -1,0 +1,41 @@
+# Copy this file to configs/eval.local.toml and fill in your own Qlib data paths.
+# Do not share eval.local.toml if it contains machine-specific paths.
+
+default_dataset = "csi500"
+output_root = "runs"
+
+[datasets.csi500]
+provider_uri = ""  # Example: "D:/qlib/qlib_data/cn_data"
+region = "cn"
+market = "csi500"
+benchmark = "SH000905"
+
+[datasets.sp500]
+provider_uri = ""  # Example: "D:/qlib/qlib_data/us_data"
+region = "us"
+market = "sp500"
+benchmark = "SPY"
+
+[time_split]
+train_start = "2015-01-01"
+train_end = "2020-12-31"
+valid_start = "2021-01-01"
+valid_end = "2022-04-30"
+test_start = "2022-05-01"
+test_end = "2026-04-30"
+
+[evaluation]
+label_expression = "Ref($close, -2) / Ref($close, -1) - 1"
+ic_method = "spearman"
+factor_length_limit = 50
+
+[selection]
+default_select = "top1"
+default_selection_metric = "valid_ic"
+
+[backtest]
+enabled = true
+account = 100000000
+topk = 50
+n_drop = 5
+risk_degree = 0.95

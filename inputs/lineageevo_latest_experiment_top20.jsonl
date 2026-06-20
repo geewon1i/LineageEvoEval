@@ -1,0 +1,20 @@
+﻿{"factor_id":"f_62273356fff0","expression":"Div(TsMean(Sub(high,low),20), Add(TsMean(close,20),0.001))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_a546147dfce1","expression":"TsMad(TsPctChange($close, 1), 20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_e3b621e92840","expression":"Div(TsMad(Sub(high,low),20), Add(Ref(close,5), TsMad(TsDelta(vwap,5),20)))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_f11c07d2b96b","expression":"Div(TsMad(Sub(high, low), 20), Ref(close, 5))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_7cb4cb398219","expression":"Div(Sub(high, low), Add(close, Sub(TsWMA(close, 10), TsWMA(close, 30))))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_2b40c68666f9","expression":"Div(Sub($high, $low), Add($close, 0.001))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_d1440691ec57","expression":"Div(Sub(high,low),Ref(close,5))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_b971f917fb6a","expression":"Div(TsMad(Sub(high,low),20), TsWMA(close,10))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_5e416c975090","expression":"Div( TsMad( Sub( high, low ), 20 ), Add( close, 0.001 ) )","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_113c8450e0ea","expression":"Div(Sub(high, low), Add(close, Sub(0.0, TsPctChange(close, 5))))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_95a219e26c64","expression":"TsStd(TsPctChange($close,1),20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_ce7b4ed4fa1d","expression":"TsStd(Add(TsPctChange(close,1), Div(Sub(high,low), Add(volume,0.001))), 20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_346039c9fb18","expression":"Div(Sub(high,low), Add(close, TsMinMaxDiff(TsDelta(close,5), 20)))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_5ab3e9d1b333","expression":"TsMad(Mul(TsDelta(close,10), TsDelta(volume,1)),20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_e7ff7fed7b7f","expression":"TsIr(Add(Div(close, vwap), TsPctChange(close, 1)), 20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_1b87b91b258c","expression":"TsMad(Sub(TsPctChange(close,1), Mul(TsDelta(close,1), TsDelta(volume,1))), 20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_d7ca017b090f","expression":"TsMad(Mul(TsDelta(close,1), TsDelta(volume,1)),20)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_8937d7b66bf0","expression":"Sub(Add(TsWMA(close,10),Sub(0.0,TsMad(Mul(TsDelta(close,10),TsDelta(volume,5)),20))),TsWMA(close,30))","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_04d3871fa9d5","expression":"Div(TsMad(Sub($high,$low),10),$close)","baseline":"lineageevo_latest_experiment"}
+{"factor_id":"f_4bc7caf1f3d3","expression":"TsMad(Sub(TsDelta(close,1),Mul(TsDelta(close,1),TsDelta(volume,5))),20)","baseline":"lineageevo_latest_experiment"}
