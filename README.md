@@ -9,8 +9,8 @@ LineageEvoEval 是一个可分享给组员使用的独立评测框架。不同 b
 - `--select top5` 直接取输入前 5 个因子。
 - `--select top20` 直接取输入前 20 个因子。
 - 框架不计算 train / valid IC。
-- `--selection-metric valid_ic|train_ic` 只是兼容旧命令的参数，在 test-only 口径下不参与排序、选择或方向处理。
-- 默认不根据 test IC 翻转方向，`orientation=1`；如果 baseline 需要反向因子，应直接在输入表达式中写成反向形式。
+- `--selection-metric valid_ic|train_ic` 只是兼容旧命令的参数，在 test-only 口径下不参与排序或选择。
+- `orientation` 用于复现 LineageEvo 的最终 test/backtest 方向处理；不填时默认 `1`。
 
 ## 1. 安装
 
@@ -76,6 +76,7 @@ benchmark = "SPY"
 - `expression`：必填，因子表达式。
 - `factor_id`：可选，不填会自动生成。
 - `baseline`：建议填写，用于追踪来源。
+- `orientation`：可选，只能是 `1` 或 `-1`。LineageEvo 原实验导出的因子应使用原实验 `selected_factors.csv` 中的方向；如果没有方向信息，默认按 `1` 处理。
 
 表达式采用 LineageEvo 的 AlphaPROBE-style DSL。可用字段：
 
@@ -169,7 +170,7 @@ spearman
 
 组合因子口径：
 
-1. 直接使用 baseline 输入表达式的方向，`orientation=1`。
+1. 按输入里的 `orientation` 调整方向；不填则为 `1`。
 2. 在 test 区间每日横截面 z-score。
 3. 对选中因子等权平均，得到组合 signal。
 4. 用组合 signal 计算 test IC / ICIR，并用于 Qlib 回测。
@@ -224,9 +225,9 @@ pip install -e ".[qlib]"
 
 如果 failed 出现在输入前 K 个因子中，框架不会用后面的因子补位；这保证 `top1/top5/top20` 始终表示输入排名截断。
 
-### 为什么不自动按 test IC 翻方向？
+### 为什么需要 orientation？
 
-用 test IC 的符号翻方向会引入测试集信息泄漏，所以框架默认保持 baseline 提供的表达式方向。需要反向时，请在表达式里直接写反向形式，例如用 `Sub(0.0, 原表达式)`。
+LineageEvo 的最终 test/backtest 会先按搜索阶段的选择指标符号确定方向，再进入 test 和回测。为了不重新计算 train/valid，又能与 LineageEvo 完全一致，框架支持在输入中传入 `orientation`。用 test IC 的符号翻方向会引入测试集信息泄漏，因此框架不会自动按 test 结果翻方向。
 
 ## 8. Python 接口
 

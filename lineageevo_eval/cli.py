@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import multiprocessing
 import sys
 
 from lineageevo_eval.engine import EvaluationOptions, TOPK_CHOICES, SELECTION_METRICS, evaluate_file
@@ -25,6 +26,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def main(argv: list[str] | None = None) -> int:
+    multiprocessing.freeze_support()
     parser = build_parser()
     args = parser.parse_args(argv)
     if args.command == "evaluate":

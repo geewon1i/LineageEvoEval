@@ -9,7 +9,7 @@ from lineageevo_eval.engine import EvaluationOptions, _select_factors, evaluate_
 
 def test_select_factors_uses_input_order_and_keeps_provided_direction():
     rows = [
-        {"factor_id": "a", "status": "ok", "qlib_expression": "$close"},
+        {"factor_id": "a", "status": "ok", "qlib_expression": "$close", "orientation": -1},
         {"factor_id": "b", "status": "ok", "qlib_expression": "$open"},
         {"factor_id": "c", "status": "ok", "qlib_expression": "$low"},
     ]
@@ -17,7 +17,8 @@ def test_select_factors_uses_input_order_and_keeps_provided_direction():
     selected = _select_factors(rows, 2)
 
     assert [row["factor_id"] for row in selected] == ["a", "b"]
-    assert selected[0]["orientation"] == 1
+    assert selected[0]["orientation"] == -1
+    assert selected[1]["orientation"] == 1
     assert "selection_score" not in selected[0]
 
 

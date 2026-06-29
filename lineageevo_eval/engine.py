@@ -74,7 +74,7 @@ def evaluate_file(
         "select": select,
         "selection_metric": selection_metric,
         "evaluation_mode": "test_only",
-        "orientation_policy": "as_provided",
+        "orientation_policy": "input_orientation_default_1",
         "run_backtest": run_backtest,
     }
     write_json(out_dir / "config_snapshot.json", config_snapshot)
@@ -180,10 +180,20 @@ def _select_factors(rows: list[dict[str, Any]], top_k: int) -> list[dict[str, An
                 {
                     **row,
                     "selection_rank": len(selected) + 1,
-                    "orientation": 1,
+                    "orientation": _parse_orientation(row.get("orientation", 1)),
                 }
             )
     return selected
+
+
+def _parse_orientation(value: Any) -> int:
+    try:
+        parsed = int(float(value))
+    except (TypeError, ValueError):
+        raise ValueError(f"orientation must be 1 or -1, got {value!r}")
+    if parsed not in {-1, 1}:
+        raise ValueError(f"orientation must be 1 or -1, got {value!r}")
+    return parsed
 
 
 def _test_ic_rows(selected_rows: list[dict[str, Any]], config: EvalConfig, client: Any) -> list[dict[str, Any]]:
@@ -406,7 +416,7 @@ def _run_summary(
         "select": select,
         "selection_metric": selection_metric,
         "evaluation_mode": "test_only",
-        "orientation_policy": "as_provided",
+        "orientation_policy": "input_orientation_default_1",
         "input_count": len(factor_rows),
         "valid_expression_count": valid_count,
         "invalid_expression_count": invalid_count,
